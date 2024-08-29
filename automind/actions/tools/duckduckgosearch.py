@@ -1,5 +1,4 @@
 from automind.actions.base import BaseAction
-from typing import str
 from pydantic import Field
 from duckduckgo_search import DDGS
 

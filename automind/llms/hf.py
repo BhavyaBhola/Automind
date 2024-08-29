@@ -1,10 +1,11 @@
 from automind.llms.base import BaseLLM
-from langchain_community.llms import VLLM
+from langchain_huggingface import HuggingFacePipeline
 
 class AnyhfLLM(BaseLLM):
     """
-    A class for handling Hugging Face language models, inheriting from BaseLLM.
-    
+    AnyhfLLM is a custom implementation of the BaseLLM class designed to work 
+    with Hugging Face models using the HuggingFacePipeline.
+
     Attributes:
         hf_model_name (str): The name of the Hugging Face model to be used.
     """
@@ -13,54 +14,38 @@ class AnyhfLLM(BaseLLM):
 
     def build(self):
         """
-        Builds and initializes the Hugging Face language model using the provided configurations.
+        Builds and initializes the Hugging Face model pipeline with the specified model ID 
+        and configurations.
 
         Returns:
-            VLLM: The initialized language model instance.
+            HuggingFacePipeline: An initialized Hugging Face model pipeline.
         """
-        self.model = VLLM(
-            model=self.hf_model_name,
-            trust_remote_code=True,  # mandatory for HF models
-            max_new_tokens=self.configs.get("max_new_tokens"),
-            top_k=self.configs.get("top_k"),
-            top_p=self.configs.get("top_p"),
-            temperature=self.configs.get("temperature"),
-            repetition_penalty=self.configs.get("repetition_penalty"),
-            dtype=self.configs.get("dtype"),
-            vllm_kwargs=self.configs.get("vllm_kwargs")
+        self.model = HuggingFacePipeline.from_model_id(
+            model_id=self.hf_model_name, 
+            task="text-generation",
+            device=0,
+            pipeline_kwargs={
+                "temperature": self.configs.get("temperature"),
+                "max_new_tokens": self.configs.get("max_new_tokens"),
+                "top_k": self.configs.get("top_k"),
+                "top_p": self.configs.get("top_p"),
+                "repetition_penalty": self.configs.get("repetition_penalty")
+            }
         )
-
+        
         return self.model
 
-    def run(self, prompt: str):
+    def run(self, prompt):
         """
-        Runs the language model with a given prompt. Builds the model if it is not already built.
+        Runs the model pipeline to generate text based on the provided prompt.
 
         Args:
-            prompt (str): The input text prompt to be processed by the model.
+            prompt (str): The input prompt for the model to generate text from.
 
         Returns:
-            str: The generated response from the model.
+            str: The generated text response from the model.
         """
         if not self.model:
             self.build()
-        return self.model.invoke(prompt)
-
-
-
-'''
-Example configs:
-
-configs = {
-    "max_new_tokens": 512,
-    "top_k": 2,
-    "top_p": 0.95,
-    "temperature": 0.8,
-    "repetition_penalty": 1.1,
-    "dtype": "float16",
-    "vllm_kwargs": {                      # add None if quantized models are not used
-        "quantization": "awq"
-    }
-}
-
-'''
+        resp = self.model.invoke(prompt)
+        return resp
