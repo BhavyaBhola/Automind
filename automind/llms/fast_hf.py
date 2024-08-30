@@ -1,7 +1,7 @@
 from automind.llms.base import BaseLLM
 from langchain_community.llms import VLLM
 
-class AnyhfLLM(BaseLLM):
+class VLLM_model(BaseLLM):
     """
     A class for handling Hugging Face language models, inheriting from BaseLLM.
     
