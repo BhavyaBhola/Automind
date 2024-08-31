@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Any
 from automind.prompts.initial_prompt import generate_initial_prompt
+from automind.prompts.summary_prompt import summary_prompt
 import importlib
 import json
 import re
@@ -49,6 +50,7 @@ class SingleAgent(BaseModel):
     actions: Any
     memory: Any
     num_iterations: int
+    summary:bool
     backstory: str
 
     def generate_prompt(self):
@@ -82,6 +84,10 @@ class SingleAgent(BaseModel):
             "tool_resopnse": tool_obj
         }
 
+        if self.summary:
+            response = self.llm.run(summary_prompt(tool_obj))
+            return response
+        
         return response
 
     def run(self):
