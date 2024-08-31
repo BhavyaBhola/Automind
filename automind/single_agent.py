@@ -73,9 +73,9 @@ class SingleAgent(BaseModel):
         cls_name = llm_response['name']
         mod_name = llm_response['arguments']['module']
         tool_cls = getattr(importlib.import_module(mod_name), cls_name)
-        tool_cls = tool_cls()
+        tool_cls = tool_cls(query = llm_response['arguments']['query'])
         setattr(tool_cls, 'llm', self.llm)
-        tool_obj = tool_cls.execute(llm_response['arguments']['query'])
+        tool_obj = tool_cls.execute()
 
         response = {
             "tool_name": cls_name,
