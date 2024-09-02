@@ -119,4 +119,3 @@ This allows you to extend the capabilities of Automind by defining your own tool
 ## Contributing
 
 Feel free to fork this repository and make contributions. Please ensure your pull requests adhere to the project's coding standards.
-```
