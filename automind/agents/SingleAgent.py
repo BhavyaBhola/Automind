@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Any
 from automind.prompts.initial_prompt import generate_initial_prompt
 from automind.prompts.summary_prompt import summary_prompt
+from automind.agents.base import BaseLLM
 import importlib
 import json
 import re
@@ -27,7 +28,7 @@ def extract_output(content: str):
     return json_data
 
 
-class SingleAgent(BaseModel):
+class SingleAgent(BaseLLM):
     """
     SingleAgent represents a single agent in a task execution system.
 
@@ -35,7 +36,6 @@ class SingleAgent(BaseModel):
         question (str): The initial question or task for the agent.
         llm (Any): The language model to be used for processing.
         actions (Any): The available actions the agent can perform.
-        memory (Any): The memory or state of the agent.
         num_iterations (int): The number of iterations the agent will perform.
         backstory (str): The backstory or context for the task.
 
@@ -45,13 +45,7 @@ class SingleAgent(BaseModel):
         run(): Runs the task execution.
     """
 
-    question: str
-    llm: Any
-    actions: Any
-    memory: Any
-    num_iterations: int
     summary:bool
-    backstory: str
 
     def generate_prompt(self):
         """
