@@ -57,6 +57,20 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#output -->
+
+"""
+- **Title:** Geopolitics Politics, Relations & Current Affairs - Foreign Policy
+- **Link:** https://foreignpolicy.com/tag/geopolitics/
+- **Summary:**  Provides weekly news, analysis, and data on geopolitical developments, including a focus on the shift in power dynamics between Europe and Asia. 
+
+- **Title:** Geopolitics - Financial Times
+- **Link:** https://www.ft.com/geopolitics
+- **Summary:** Offers comprehensive coverage of global geopolitical developments, including news, analysis, and opinion on politics and international relations.
+
+"""
+
 ```
 
 ### ThinkAgent
@@ -93,6 +107,32 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#output-->
+
+"""
+
+==============================
+🎯 Final Answer:
+ Based on my research, a 3-day trip to Rajasthan could include:
+Day 1: Arrive in Jaipur, the capital city, and explore the iconic Amber Fort, Hawa Mahal (Palace of Winds), and the City Palace. Stay overnight in a heritage hotel for a truly authentic experience.
+Day 2: Take a day trip to the beautiful city of Udaipur, known as the "Venice of the East". Visit the City Palace, Lake Pichola, and Jag Mandir. Enjoy a boat ride on the lake and stay overnight in a lakeside resort.
+Day 3: Travel to Jodhpur, the "Blue City", and explore the Mehrangarh Fort, Jaswant Thada, and the bustling markets. Stay overnight in a traditional haveli (mansion) for a unique cultural experience.
+
+Transportation: 
+- You can travel between cities by train, bus, or car. 
+- For shorter distances, consider using taxis, auto-rickshaws, or even camels.
+
+Accommodation:
+- Rajasthan offers a wide range of accommodation options, from budget-friendly guesthouses and homestays to luxurious palaces and forts. 
+- Heritage hotels and havelis are popular choices for their unique charm and historical significance.
+
+Remember to book your accommodation and transportation in advance, especially during peak season. Enjoy your trip to Rajasthan! 
+
+==============================
+
+
+"""
 ```
 
 ## Creating Custom Action Tools
