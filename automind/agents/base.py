@@ -20,7 +20,7 @@ class BaseLLM(BaseModel):
     question: str
     llm: Any
     actions: Any
-    num_iterations: int = None
+    num_iterations: int
     backstory: str
 
     @abstractmethod

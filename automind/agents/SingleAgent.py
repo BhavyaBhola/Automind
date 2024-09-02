@@ -46,6 +46,7 @@ class SingleAgent(BaseLLM):
     """
 
     summary:bool
+    num_iterations:int = None
 
     def generate_prompt(self):
         """
