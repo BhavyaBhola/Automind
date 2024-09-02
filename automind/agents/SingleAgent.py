@@ -58,7 +58,7 @@ class SingleAgent(BaseLLM):
 
     def run_task(self):
         """
-        Runs the task by interacting with the language model, executing the appropriate tool, 
+        Runs the task by interacting with the language model, executing the appropriate tool,
         and returning the tool's response.
 
         Returns:
@@ -66,23 +66,36 @@ class SingleAgent(BaseLLM):
         """
         llm_response = self.llm.run(self.generate_prompt())
         llm_response = extract_output(llm_response)
+
         cls_name = llm_response['name']
         mod_name = llm_response['arguments']['module']
+        
+        print(f"\n{'-' * 30}\n📦 Loading Tool: {cls_name} from module: {mod_name}\n{'-' * 30}")
         tool_cls = getattr(importlib.import_module(mod_name), cls_name)
-        tool_cls = tool_cls(query = llm_response['arguments']['query'])
+        tool_cls = tool_cls(query=llm_response['arguments']['query'])
         setattr(tool_cls, 'llm', self.llm)
+        
+        print(f"\n{'-' * 30}\n🚀 Executing Tool: {cls_name}...\n{'-' * 30}")
         tool_obj = tool_cls.execute()
+
+        print(f"\n{'-' * 30}\n🛠️ Tool Execution Completed.\n{'-' * 30}")
+        print(f"Tool Name: {cls_name}\nTool Response: {tool_obj}\n")
 
         response = {
             "tool_name": cls_name,
-            "tool_resopnse": tool_obj
+            "tool_response": tool_obj
         }
 
         if self.summary:
+            print(f"\n{'-' * 30}\n📝 Generating Summary...\n{'-' * 30}")
             response = self.llm.run(summary_prompt(tool_obj))
+            print(f"\n{'-' * 30}\n📄 Summary Generated:\n{'-' * 30}")
+            print(f"{response}\n")
             return response
         
+        print(print(f"\n{'='*30}\n🎯 Final Answer:\n{response}\n{'='*30}"))
         return response
+
 
     def run(self):
         """
