@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any , Optional
+from typing import Any
 from automind.prompts.initial_prompt import generate_initial_prompt
 from automind.prompts.summary_prompt import summary_prompt
 from automind.agents.base import BaseLLM
@@ -46,7 +46,6 @@ class SingleAgent(BaseLLM):
     """
 
     summary:bool
-    num_iterations:Optional[int] = None
 
     def generate_prompt(self):
         """

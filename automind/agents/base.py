@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any
+from typing import Any , Optional
 from abc import abstractmethod
 
 class BaseLLM(BaseModel):
@@ -20,7 +20,7 @@ class BaseLLM(BaseModel):
     question: str
     llm: Any
     actions: Any
-    num_iterations: int
+    num_iterations: Optional[int]
     backstory: str
 
     @abstractmethod
